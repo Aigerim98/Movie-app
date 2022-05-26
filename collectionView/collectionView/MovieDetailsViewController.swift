@@ -11,7 +11,7 @@ class MovieDetailsViewController: UIViewController {
 
     var rating: Double!
     var descriptionText: String!
-    var cast: [Cast]?
+    var cast: [Cast] = []
     var image: UIImage!
     var movieNameText: String!
     var releaseDate: String!
@@ -26,45 +26,67 @@ class MovieDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        posterImageView.image = image
-        movieRatingLabel.text = "★ \(rating!)"
-//        movieRatingLabel.layer.masksToBounds = true
-//        movieRatingLabel.layer.cornerRadius = 5
+        getData()
         castCollectionView.dataSource = self
         castCollectionView.delegate = self
-        castCollectionView.collectionViewLayout = layout
+        configureViews()
+    }
+    
+    private func getData() {
+        posterImageView.image = image
         movieDescriptionLabel.text = descriptionText
         movieNameLabel.text = movieNameText
         dateOfReleaseLabel.text = releaseDate
-        ratingContainerView.backgroundColor = .green
-        ratingContainerView.layer.cornerRadius = 5
+        if rating != nil {
+            movieRatingLabel.text = "★ \(rating!)"
+            ratingContainerView.backgroundColor = setRatingColor(rating: rating)
+            ratingContainerView.layer.cornerRadius = 5
+        }else {
+            movieRatingLabel.text = ""
+            ratingContainerView.backgroundColor = .clear
+        }
     }
     
+    private func configureViews() {
+        let layout = UICollectionViewFlowLayout()
+        castCollectionView.collectionViewLayout = layout
+        layout.scrollDirection = .horizontal
+    }
+    
+}
 
-
+func setRatingColor(rating: Double) -> UIColor { // не знаю в каком файле стоит создать функцию
+    if rating >= 7.0 {
+        return .systemGreen
+    }else if rating < 7.0 && rating >= 5.0 {
+        return .systemYellow
+    }else {
+        return .systemRed
+    }
 }
 
 extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cast!.count
+        return cast.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CastCollectionViewCell {
+//            cell.castImageView.image = cast![indexPath.row].image
+//            cell.castNameLabel.text = cast![indexPath.row].name
+//            cell.castRoleLabel.text = cast![indexPath.row].role
+//            cell.castImageView.layer.cornerRadius = cell.castImageView.frame.size.height / 2
+//            cell.castImageView.clipsToBounds = true
+//            cell.castNameLabel.lineBreakMode = .byWordWrapping
+//            //cell.configure(with: cast[indexPath.row])
+//            return cell
+//        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CastCollectionViewCell
-        cell.castImageView.image = cast?[indexPath.row].image
-        cell.castNameLabel.text = cast?[indexPath.row].name
-        cell.castRoleLabel.text = cast?[indexPath.row].role
-        cell.castImageView.layer.cornerRadius = cell.castImageView.frame.size.height / 2
-        cell.castImageView.clipsToBounds = true
-        cell.castNameLabel.lineBreakMode = .byWordWrapping
-        //cell.configure(with: cast[indexPath.row])
+        cell.configure(with: cast[indexPath.row])
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width/4, height: 165)
     }
-    
 }

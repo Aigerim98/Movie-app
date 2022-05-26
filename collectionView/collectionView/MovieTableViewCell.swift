@@ -19,20 +19,26 @@ class MovieTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    @IBOutlet var movieRatingLabel: UILabel!
-    
-    @IBOutlet var movieReleaseDateLabel: UILabel!
-    @IBOutlet var movieNameLabel: UILabel!
-    @IBOutlet var posterImageView: UIImageView!
+    @IBOutlet private var movieRatingLabel: UILabel!
+    @IBOutlet private var movieRatingContainerView: UIView!
+    @IBOutlet private var movieReleaseDateLabel: UILabel!
+    @IBOutlet private var movieNameLabel: UILabel!
+    @IBOutlet private var posterImageView: UIImageView!
     func configure(with movie: Movie){
-        movieRatingLabel.text = "★ \(movie.rating!)"
+        if movie.rating != nil {
+            movieRatingLabel.text = "★ \(movie.rating!)"
+            movieRatingContainerView.backgroundColor = setRatingColor(rating: movie.rating!)
+            movieRatingContainerView.layer.cornerRadius = 5
+        }else {
+            movieRatingLabel.text = ""
+        }
         movieNameLabel.text = movie.name
         posterImageView.image = movie.poster
+        
         movieReleaseDateLabel.text = movie.dateOfRelease
         movieNameLabel.lineBreakMode = .byWordWrapping
+        
         posterImageView.layer.cornerRadius = 10
         posterImageView.clipsToBounds = true
-        movieRatingLabel.layer.masksToBounds = true
-        movieRatingLabel.layer.cornerRadius = 5
     }
 }

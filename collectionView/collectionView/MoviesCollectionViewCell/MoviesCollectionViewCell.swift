@@ -24,8 +24,15 @@ class MoviesCollectionViewCell: UICollectionViewCell {
         posterImageView.image = movie.poster
         nameLabel.text = movie.name
         genreLabel.text = movie.genre?.joined(separator: ", ")
-        guard let rating = movie.rating else { return }
-        ratingLabel.text = "★ \(rating)"
-        ratingContainerView.backgroundColor = .red
+//        guard let rating = movie.rating else { return }
+//        ratingLabel.text = "★ \(rating)"
+        if movie.rating != nil {
+            ratingLabel.text = "★ \(movie.rating!)"
+            ratingContainerView.backgroundColor = .green
+            ratingContainerView.layer.cornerRadius = 3
+        }else {
+            ratingLabel.text = ""
+            ratingContainerView.backgroundColor = .clear
+        }
     }
 }

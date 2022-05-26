@@ -10,6 +10,7 @@ import UIKit
 typealias Callback = () -> Void
 
 class HomeMoviesSectionCell: UITableViewCell {
+    
     private var movies: [Movie] = [] {
         didSet {
             collectionView.reloadData()
@@ -23,7 +24,6 @@ class HomeMoviesSectionCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         configureCollectionView()
     }
     
