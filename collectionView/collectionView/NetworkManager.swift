@@ -15,7 +15,7 @@ class NetworkManager {
     static var shared = NetworkManager()
     
     private let session: URLSession
-    
+    var imagesCache = NSCache<NSString, NSData>()
     private lazy var urlComponents: URLComponents = {
         var components = URLComponents()
         components.scheme = "https"
@@ -126,6 +126,10 @@ class NetworkManager {
         guard let requestUrl = components.url else {
             return
         }
+        if let imageData = imagesCache.object(forKey: requestUrl.absoluteString as NSString) {
+            completion(imageData as Data)
+            return
+        }
         let task = session.downloadTask(with: requestUrl) { localUrl, response, error in
             guard error == nil else {
                 print("Error: error calling GET")
@@ -140,9 +144,10 @@ class NetworkManager {
                 return
             }
             do {
-                let moviesEntity = try Data (contentsOf: localUrl)
+                let imageData = try Data (contentsOf: localUrl)
                 DispatchQueue.main.sync {
-                    completion(moviesEntity)
+                    self.imagesCache.setObject(imageData as NSData, forKey: requestUrl.absoluteString as NSString) 
+                    completion(imageData)
                 }
             }catch {
                 DispatchQueue.main.sync {
@@ -152,4 +157,5 @@ class NetworkManager {
         }
         task.resume()
     }
+   
 }
