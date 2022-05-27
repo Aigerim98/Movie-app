@@ -117,4 +117,39 @@ class NetworkManager {
         task.resume()
     }
     
+    func loadImage(with path: String, completion: @escaping (Data) -> Void ){
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "image.tmdb.org"
+        components.path = "t/p/w200\(path)"
+        
+        guard let requestUrl = components.url else {
+            return
+        }
+        let task = session.downloadTask(with: requestUrl) { localUrl, response, error in
+            guard error == nil else {
+                print("Error: error calling GET")
+                return
+            }
+            guard let localUrl = localUrl else {
+                print("Error: Did not receive data")
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200..<300) ~= response.statusCode else{
+                print("Error: HTTP request failed")
+                return
+            }
+            do {
+                let moviesEntity = try Data (contentsOf: localUrl)
+                DispatchQueue.main.sync {
+                    completion(moviesEntity)
+                }
+            }catch {
+                DispatchQueue.main.sync {
+                    print("Error with downloading image")
+                }
+            }
+        }
+        task.resume()
+    }
 }
