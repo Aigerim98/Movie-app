@@ -12,41 +12,45 @@ class HomeViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     
     private var sectionNames: [String] = ["Today at the cinema", "Coming soon", "Trending"]
-    private var netwrokManager = NetworkManager.shared
+    private var networkManager = NetworkManager.shared
     private var genres: [Genre] = []
     
-    private var soonAtTheCinema: [Movie] = [
-        Movie.init(name: "Jurassic World: Dominion", poster: UIImage.init(named: "jurassicWorld.png"), dateOfRelease: "2022-06-10", genre: ["Action", "Thriller", "Science Fiction"]),
-        Movie.init(name: "Avatar: The way of water", poster: UIImage.init(named: "avatarTheWayOfWater.jpeg"), dateOfRelease: "2022-16-12", genre: ["Action", "Fantasy", "Science Fiction"]),
-        Movie.init(name: "DC league of super pets", poster: UIImage.init(named: "dcLeagueOfPets.jpg"), dateOfRelease: "2022-07-20", genre: ["Action", "Animation", "Science Fiction"]),
-        Movie.init(name: "Lightyear", poster: UIImage.init(named: "lightyear.jpg"), dateOfRelease: "2022-06-17", genre: ["Animation", "Science Fiction", "Family"]),
-        Movie.init(name: "Minions: the rise of Gru", poster: UIImage.init(named: "minionsTheRiseOfGru.jpg"), dateOfRelease: "2022-07-01", genre: ["Animation", "Adventure", "Comedy"])]
-    
-    private var todayAtTheCinema: [Movie] = [
-        Movie.init(name: "Doctor Strange in the multiverse of  madness", poster: UIImage.init(named: "doctorStrange2.jpeg"), rating: 7.4, dateOfRelease: "2022-05-05", genre: ["Action", "Fantasy", "Science Fiction"]),
-        Movie.init(name: "Top gun: Maverick", poster: UIImage.init(named: "topGunMaverick.jpg"), rating: 8.6, dateOfRelease: "2022-05-25", genre: ["Action", "Drama"]),
-        Movie.init(name: "Everything everywhere all at once", poster: UIImage.init(named: "everythingEverywhere.jpg"),rating: 8.5, dateOfRelease: "2022-05-13", genre: ["Comedy", "Fantasy", "Science Fiction"]),
-        Movie.init(name: "Downton Abbey: a new era", poster: UIImage.init(named: "downtonAbbeyANewEra.jpg"), rating: 7.7, dateOfRelease: "2022-04-29", genre: ["Drama", "Romance"]),
-        Movie.init(name: "Sonic the hedgehog 2", poster: UIImage.init(named: "sonic2.jpg"), rating: 6.6, dateOfRelease: "2022-04-01", genre: ["Action", "Animation", "Science Fiction"])]
-    
-    private var trending: [Movie] = [
-        Movie.init(name: "Doctor Strange in the multiverse of  madness", poster: UIImage.init(named: "doctorStrange2.jpeg"), rating: 7.4, dateOfRelease: "2022-05-05", genre: ["Action", "Fantasy", "Science Fiction"]),
-        Movie.init(name: "Top gun: Maverick", poster: UIImage.init(named: "topGunMaverick.jpg"), rating: 8.6, dateOfRelease: "2022-05-25", genre: ["Action", "Drama"]),
-        Movie.init(name: "Everything everywhere all at once", poster: UIImage.init(named: "everythingEverywhere.jpg"),rating: 8.5, dateOfRelease: "2022-05-13", genre: ["Comedy", "Fantasy", "Science Fiction"]),
-        Movie.init(name: "Downton Abbey: a new era", poster: UIImage.init(named: "downtonAbbeyANewEra.jpg"), rating: 7.7, dateOfRelease: "2022-04-29"),
-        Movie.init(name: "Sonic the hedgehog 2", poster: UIImage.init(named: "sonic2.jpg"), rating: 6.6, dateOfRelease: "2022-04-01", genre: ["Drama", "Romance"]),
-        Movie.init(name: "Jurassic World: Dominion", poster: UIImage.init(named: "jurassicWorld.png"), dateOfRelease: "2022-06-10", genre: ["Action", "Thriller", "Science Fiction"])]
+//    private var soonAtTheCinema: [Movie] = [
+//        Movie.init(name: "Jurassic World: Dominion", poster: UIImage.init(named: "jurassicWorld.png"), dateOfRelease: "2022-06-10", genre: ["Action", "Thriller", "Science Fiction"]),
+//        Movie.init(name: "Avatar: The way of water", poster: UIImage.init(named: "avatarTheWayOfWater.jpeg"), dateOfRelease: "2022-16-12", genre: ["Action", "Fantasy", "Science Fiction"]),
+//        Movie.init(name: "DC league of super pets", poster: UIImage.init(named: "dcLeagueOfPets.jpg"), dateOfRelease: "2022-07-20", genre: ["Action", "Animation", "Science Fiction"]),
+//        Movie.init(name: "Lightyear", poster: UIImage.init(named: "lightyear.jpg"), dateOfRelease: "2022-06-17", genre: ["Animation", "Science Fiction", "Family"]),
+//        Movie.init(name: "Minions: the rise of Gru", poster: UIImage.init(named: "minionsTheRiseOfGru.jpg"), dateOfRelease: "2022-07-01", genre: ["Animation", "Adventure", "Comedy"])]
+//
+//    private var todayAtTheCinema: [Movie] = [
+//        Movie.init(name: "Doctor Strange in the multiverse of  madness", poster: UIImage.init(named: "doctorStrange2.jpeg"), rating: 7.4, dateOfRelease: "2022-05-05", genre: ["Action", "Fantasy", "Science Fiction"]),
+//        Movie.init(name: "Top gun: Maverick", poster: UIImage.init(named: "topGunMaverick.jpg"), rating: 8.6, dateOfRelease: "2022-05-25", genre: ["Action", "Drama"]),
+//        Movie.init(name: "Everything everywhere all at once", poster: UIImage.init(named: "everythingEverywhere.jpg"),rating: 8.5, dateOfRelease: "2022-05-13", genre: ["Comedy", "Fantasy", "Science Fiction"]),
+//        Movie.init(name: "Downton Abbey: a new era", poster: UIImage.init(named: "downtonAbbeyANewEra.jpg"), rating: 7.7, dateOfRelease: "2022-04-29", genre: ["Drama", "Romance"]),
+//        Movie.init(name: "Sonic the hedgehog 2", poster: UIImage.init(named: "sonic2.jpg"), rating: 6.6, dateOfRelease: "2022-04-01", genre: ["Action", "Animation", "Science Fiction"])]
+//
+//    private var trending: [Movie] = [
+//        Movie.init(name: "Doctor Strange in the multiverse of  madness", poster: UIImage.init(named: "doctorStrange2.jpeg"), rating: 7.4, dateOfRelease: "2022-05-05", genre: ["Action", "Fantasy", "Science Fiction"]),
+//        Movie.init(name: "Top gun: Maverick", poster: UIImage.init(named: "topGunMaverick.jpg"), rating: 8.6, dateOfRelease: "2022-05-25", genre: ["Action", "Drama"]),
+//        Movie.init(name: "Everything everywhere all at once", poster: UIImage.init(named: "everythingEverywhere.jpg"),rating: 8.5, dateOfRelease: "2022-05-13", genre: ["Comedy", "Fantasy", "Science Fiction"]),
+//        Movie.init(name: "Downton Abbey: a new era", poster: UIImage.init(named: "downtonAbbeyANewEra.jpg"), rating: 7.7, dateOfRelease: "2022-04-29"),
+//        Movie.init(name: "Sonic the hedgehog 2", poster: UIImage.init(named: "sonic2.jpg"), rating: 6.6, dateOfRelease: "2022-04-01", genre: ["Drama", "Romance"]),
+//        Movie.init(name: "Jurassic World: Dominion", poster: UIImage.init(named: "jurassicWorld.png"), dateOfRelease: "2022-06-10", genre: ["Action", "Thriller", "Science Fiction"])]
     
 //    private var trendingMovies: [Movie] = [] {
 //        didSet{
 //            collectionView.reloadData()
 //        }
 //    }
-    lazy var sectionMovies: [[Movie]] = [todayAtTheCinema, soonAtTheCinema, trending]
-    
+    //lazy var sectionMovies: [[Movie]] = [todayAtTheCinema, soonAtTheCinema, trending]
+    var todayMovies: [Movie] = []
+    var soonMovies: [Movie] = []
+    var trendingMovies: [Movie] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        loadGenres()
+        loadMovies()
     }
     
     private func configureTableView() {
@@ -71,10 +75,20 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeViewController {
-    func loadData() {
-        netwrokManager.loadGenres {[weak self] genres in
+    func loadGenres() {
+        networkManager.loadGenres {[weak self] genres in
             self?.genres = genres
-            //load other movies
+        }
+    }
+    func loadMovies() {
+        networkManager.loadSoonMovies { [weak self] movies in
+            self?.soonMovies = movies
+        }
+        networkManager.loadTodayMovies { [weak self] movies in
+            self?.todayMovies = movies
+        }
+        networkManager.loadTrendingMovies { [weak self] movies in
+            self?.trendingMovies = movies
         }
     }
 }
