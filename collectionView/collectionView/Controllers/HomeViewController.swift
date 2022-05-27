@@ -12,6 +12,8 @@ class HomeViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     
     private var sectionNames: [String] = ["Today at the cinema", "Coming soon", "Trending"]
+    private var netwrokManager = NetworkManager.shared
+    private var genres: [Genre] = []
     
     private var soonAtTheCinema: [Movie] = [
         Movie.init(name: "Jurassic World: Dominion", poster: UIImage.init(named: "jurassicWorld.png"), dateOfRelease: "2022-06-10", genre: ["Action", "Thriller", "Science Fiction"]),
@@ -35,6 +37,11 @@ class HomeViewController: UIViewController {
         Movie.init(name: "Sonic the hedgehog 2", poster: UIImage.init(named: "sonic2.jpg"), rating: 6.6, dateOfRelease: "2022-04-01", genre: ["Drama", "Romance"]),
         Movie.init(name: "Jurassic World: Dominion", poster: UIImage.init(named: "jurassicWorld.png"), dateOfRelease: "2022-06-10", genre: ["Action", "Thriller", "Science Fiction"])]
     
+//    private var trendingMovies: [Movie] = [] {
+//        didSet{
+//            collectionView.reloadData()
+//        }
+//    }
     lazy var sectionMovies: [[Movie]] = [todayAtTheCinema, soonAtTheCinema, trending]
     
     override func viewDidLoad() {
@@ -60,5 +67,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeMoviesSectionCell", for: indexPath) as! HomeMoviesSectionCell
         cell.configure(with: (title: sectionNames[indexPath.row], movies: sectionMovies[indexPath.row]))
         return cell
+    }
+}
+
+extension HomeViewController {
+    func loadData() {
+        netwrokManager.loadGenres {[weak self] genres in
+            self?.genres = genres
+            //load other movies
+        }
     }
 }
