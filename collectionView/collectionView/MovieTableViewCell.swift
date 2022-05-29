@@ -25,20 +25,15 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet private var movieNameLabel: UILabel!
     @IBOutlet private var posterImageView: UIImageView!
     func configure(with movie: Movie){
-        if movie.rating != nil {
-            movieRatingLabel.text = "★ \(movie.rating!)"
-            movieRatingContainerView.backgroundColor = setRatingColor(rating: movie.rating!)
-            movieRatingContainerView.layer.cornerRadius = 5
+        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in self?.posterImageView.image = UIImage(data: imageData)})
+        movieNameLabel.text = movie.originalTitle
+        movieRatingLabel.text = "★ \(movie.voteAverage)"
+        if movie.voteAverage < 4 {
+            movieRatingContainerView.backgroundColor = .systemRed
+        }else if movie.voteAverage < 7 {
+            movieRatingContainerView.backgroundColor = .systemYellow
         }else {
-            movieRatingLabel.text = ""
+            movieRatingContainerView.backgroundColor =  .systemGreen
         }
-        movieNameLabel.text = movie.name
-        posterImageView.image = movie.poster
-        
-        movieReleaseDateLabel.text = movie.dateOfRelease
-        movieNameLabel.lineBreakMode = .byWordWrapping
-        
-        posterImageView.layer.cornerRadius = 10
-        posterImageView.clipsToBounds = true
     }
 }

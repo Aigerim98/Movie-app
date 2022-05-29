@@ -21,18 +21,16 @@ class MoviesCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with movie: Movie) {
-        posterImageView.image = movie.poster
-        nameLabel.text = movie.name
-        genreLabel.text = movie.genre?.joined(separator: ", ")
-//        guard let rating = movie.rating else { return }
-//        ratingLabel.text = "★ \(rating)"
-        if movie.rating != nil {
-            ratingLabel.text = "★ \(movie.rating!)"
-            ratingContainerView.backgroundColor = .green
-            ratingContainerView.layer.cornerRadius = 3
+        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in self?.posterImageView.image = UIImage(data: imageData)})
+        nameLabel.text = movie.originalTitle
+        ratingLabel.text = "★ \(movie.voteAverage)"
+        if movie.voteAverage < 4 {
+            ratingContainerView.backgroundColor = .systemRed
+        }else if movie.voteAverage < 7 {
+            ratingContainerView.backgroundColor = .systemYellow
         }else {
-            ratingLabel.text = ""
-            ratingContainerView.backgroundColor = .clear
+            ratingContainerView.backgroundColor =  .systemGreen
         }
     }
 }
+
