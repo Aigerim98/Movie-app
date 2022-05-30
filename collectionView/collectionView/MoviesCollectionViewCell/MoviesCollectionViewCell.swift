@@ -20,10 +20,13 @@ class MoviesCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func configure(with movie: Movie) {
-        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in self?.posterImageView.image = UIImage(data: imageData)})
+    func configure(with movie: Movie, genre: [Genre]) {
+        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in self?.posterImageView.image = UIImage(data: imageData)
+        })
+        print("Movie poster: ", movie.posterPath)
         nameLabel.text = movie.originalTitle
         ratingLabel.text = "★ \(movie.voteAverage)"
+        genreLabel.text = getGenres(by: movie.genreIds, genres: genre)
         if movie.voteAverage < 4 {
             ratingContainerView.backgroundColor = .systemRed
         }else if movie.voteAverage < 7 {

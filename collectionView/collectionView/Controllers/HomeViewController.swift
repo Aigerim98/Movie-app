@@ -7,48 +7,63 @@
 
 import UIKit
 
+
 class HomeViewController: UIViewController {
     
     @IBOutlet private var tableView: UITableView!
     
+    
     private var sectionNames: [String] = ["Today at the cinema", "Coming soon", "Trending"]
     private var networkManager = NetworkManager.shared
+    
     private var genres: [Genre] = []
     
-//    private var trendingMovies: [Movie] = [] {
-//        didSet{
-//            collectionView.reloadData()
-//        }
-//    }
-    //lazy var sectionMovies: [[Movie]] = [todayAtTheCinema, soonAtTheCinema, trending]
     var todayMovies: [Movie] = [] {
         didSet{
+            //sectionMovies.append(todayMovies)
+            sectionMovies[0] = todayMovies
             tableView.reloadData()
         }
     }
     var soonMovies: [Movie] = [] {
         didSet{
+            //sectionMovies.append(soonMovies)
+            sectionMovies[1] = soonMovies
             tableView.reloadData()
         }
     }
     var trendingMovies: [Movie] = [] {
         didSet{
+            //sectionMovies.append(trendingMovies)
+            sectionMovies[2] = trendingMovies
             tableView.reloadData()
         }
     }
     
-    lazy var sectionMovies: [[Movie]] = [todayMovies, soonMovies, trendingMovies]
+    lazy var sectionMovies: [[Movie]] = [[], [], []]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
         loadGenres()
+        
         loadMovies()
+//                defultVals()
+        configureTableView()
+//        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (_) in
+//            print("hello")
+//            self.sectionMovies = [self.todayMovies, self.soonMovies, self.trendingMovies]
+//            self.tableView.reloadData()
+//            self.configureTableView()
+//            print(self.todayMovies[0].originalTitle)
+//
+//        }
+        //        print(todayMovies)
     }
     
     private func configureTableView() {
+        tableView.register(UINib(nibName: "HomeMoviesSectionCell", bundle: Bundle(for: HomeMoviesSectionCell.self)), forCellReuseIdentifier: "HomeMoviesSectionCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "HomeMoviesSectionCell", bundle: Bundle(for: HomeMoviesSectionCell.self)), forCellReuseIdentifier: "HomeMoviesSectionCell")
         tableView.estimatedRowHeight = 355
         tableView.rowHeight = UITableView.automaticDimension
     }
@@ -56,31 +71,48 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sectionNames.count
+        sectionMovies.count
     }
-
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        25
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeMoviesSectionCell", for: indexPath) as! HomeMoviesSectionCell
-        cell.configure(with: (title: sectionNames[indexPath.row], movies: sectionMovies[indexPath.row]))
+        cell.configure(with: (title: sectionNames[indexPath.row], movies: sectionMovies[indexPath.row]), genre: genres)
         return cell
     }
 }
 
 extension HomeViewController {
+    
+    
+    
     func loadGenres() {
+        
         networkManager.loadGenres {[weak self] genres in
-            self?.genres = genres
+            guard let self = self else { return }
+            self.genres = genres
         }
     }
+    
     func loadMovies() {
+        networkManager.loadTrendingMovies { [weak self] movies in
+            guard let self = self else { return }
+            self.trendingMovies = movies
+        }
         networkManager.loadSoonMovies { [weak self] movies in
-            self?.soonMovies = movies
+            guard let self = self else { return }
+            self.soonMovies = movies
         }
         networkManager.loadTodayMovies { [weak self] movies in
-            self?.todayMovies = movies
+            guard let self = self else { return }
+            self.todayMovies = movies
+            
+            ////            }
         }
-        networkManager.loadTrendingMovies { [weak self] movies in
-            self?.trendingMovies = movies
-        }
+        
+        
     }
 }

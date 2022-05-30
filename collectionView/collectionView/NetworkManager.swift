@@ -8,14 +8,15 @@
 import Foundation
 
 class NetworkManager {
+    
+    
+    
     private let API_KEY = "e516e695b99f3043f08979ed2241b3db"
-    private let MOVIE_GENRES_URL: String = "https://api.themoviedb.org/3/genre/movie/list"
-    private let SOON_MOVIES_URL = "https://api.themoviedb.org/3/movie/upcoming"
-    private let NOW_PLAYING_MOVIES = "https://api.themoviedb.org/3/movie/now_playing"
     static var shared = NetworkManager()
     
     private let session: URLSession
     var imagesCache = NSCache<NSString, NSData>()
+    
     private lazy var urlComponents: URLComponents = {
         var components = URLComponents()
         components.scheme = "https"
@@ -32,18 +33,21 @@ class NetworkManager {
     func loadTodayMovies(completion: @escaping ([Movie]) -> Void){
         loadMovies(path: "/3/movie/now_playing") {movies in
             completion(movies)
+            
         }
     }
     
     func loadTrendingMovies(completion: @escaping ([Movie]) -> Void){
         loadMovies(path: "/3/trending/movie/week") { movies in
             completion(movies)
+            
         }
     }
     
     func loadSoonMovies(completion: @escaping ([Movie]) -> Void){
         loadMovies(path: "/3/movie/upcoming") { movies in
             completion(movies)
+            
         }
     }
     

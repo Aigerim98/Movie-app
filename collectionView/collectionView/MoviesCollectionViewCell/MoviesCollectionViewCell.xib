@@ -78,7 +78,7 @@
                 <outlet property="ratingContainerView" destination="t68-Ok-E3T" id="f6K-Bu-lUo"/>
                 <outlet property="ratingLabel" destination="VxV-uS-C5i" id="7My-pB-fsp"/>
             </connections>
-            <point key="canvasLocation" x="294.20289855072468" y="227.67857142857142"/>
+            <point key="canvasLocation" x="335.50724637681162" y="239.39732142857142"/>
         </collectionViewCell>
     </objects>
     <resources>

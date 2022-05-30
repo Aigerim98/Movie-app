@@ -16,7 +16,7 @@ class HomeMoviesSectionCell: UITableViewCell {
             collectionView.reloadData()
         }
     }
-    
+    private var genres: [Genre] = []
     var onAllMoviesButtonDidTap: Callback?
 
     @IBOutlet private var titleLabel: UILabel!
@@ -28,24 +28,25 @@ class HomeMoviesSectionCell: UITableViewCell {
     }
     
     private func configureCollectionView() {
+        collectionView.register(UINib(nibName: "MoviesCollectionViewCell", bundle: Bundle(for: MoviesCollectionViewCell.self)), forCellWithReuseIdentifier: "MoviesCollectionViewCell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UINib(nibName: "MoviesCollectionViewCell", bundle: Bundle(for: MoviesCollectionViewCell.self)), forCellWithReuseIdentifier: "MoviesCollectionViewCell")
-    }
-    
-    func configure(with viewModel: (title: String?, movies: [Movie])) {
-        titleLabel.text = viewModel.title
-        movies = viewModel.movies
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         collectionView.collectionViewLayout = layout
+    }
+    
+    func configure(with viewModel: (title: String?, movies: [Movie]), genre: [Genre]) {
+        titleLabel.text = viewModel.title
+        movies = viewModel.movies
+        genres = genre
     }
 }
 
 extension HomeMoviesSectionCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoviesCollectionViewCell", for: indexPath) as! MoviesCollectionViewCell
-        cell.configure(with: movies[indexPath.item])
+        cell.configure(with: movies[indexPath.item], genre: genres)
         return cell
     }
     
