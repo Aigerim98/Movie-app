@@ -27,9 +27,11 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet private var posterImageView: UIImageView!
     
     func configure(with movie: Movie){
+        movieRatingContainerView.layer.cornerRadius = 5
         NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in self?.posterImageView.image = UIImage(data: imageData)})
         movieNameLabel.text = movie.originalTitle
         movieRatingLabel.text = "★ \(movie.voteAverage)"
+        movieReleaseDateLabel.text = movie.releaseDate
         if movie.voteAverage < 4 {
             movieRatingContainerView.backgroundColor = .systemRed
         }else if movie.voteAverage < 7 {

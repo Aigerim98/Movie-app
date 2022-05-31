@@ -16,6 +16,8 @@ class HomeMoviesSectionCell: UITableViewCell {
             collectionView.reloadData()
         }
     }
+    
+    @IBOutlet var allMovieButton: UIButton!
     private var genres: [Genre] = []
     var onAllMoviesButtonDidTap: Callback?
 
@@ -25,6 +27,10 @@ class HomeMoviesSectionCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCollectionView()
+    }
+    
+    @IBAction func showAllMovies(_ sender: UIButton) {
+        (onAllMoviesButtonDidTap ?? {})()
     }
     
     private func configureCollectionView() {

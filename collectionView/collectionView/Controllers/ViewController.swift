@@ -12,33 +12,21 @@ class ViewController: UIViewController {
 
     @IBOutlet var movieTable: UITableView!
     
-   // @IBOutlet var genreCollection: UICollectionView!
-    
-    private var movies: [Movie] = [] {
-        didSet{
-            movieTable.reloadData()
-        }
-    }
+    @IBOutlet var genreCollection: UICollectionView!
+
     private var networkManager = NetworkManager.shared
-//    private var genres: [Genre] = [] {
-//        didSet{
-//            genreCollection.reloadData()
-//        }
-//    }
+    var genres: [Genre] = []
+    var movies: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // loadGenres()
-        loadMovies()
-        // Do any additional setup after loading the view.
-//        movieTable.dataSource = self
-//        movieTable.delegate = self
-//        genreCollection.dataSource = self
-//        genreCollection.delegate = self
+        print("loaded")
+        movieTable.dataSource = self
+        movieTable.delegate = self
+        genreCollection.dataSource = self
+        genreCollection.delegate = self
     }
-    
 
-    
 }
 
 func getGenres(by ids: [Int], genres: [Genre]) -> String? {
@@ -49,22 +37,22 @@ func getGenres(by ids: [Int], genres: [Genre]) -> String? {
     return array.joined(separator: ", ")
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource{
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return genres.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCell", for: indexPath) as! GenreCollectionViewCell
-//
-//        //cell.genreLabel.text = genres[indexPath.row]
-//        cell.genreLabel.text = getGenres(by: movies[indexPath.row].genreIds, genres: genres)
-//        cell.contentView.layer.cornerRadius = 5
-//        cell.contentView.layer.borderWidth = 1.0
-//        cell.contentView.layer.borderColor = UIColor.orange.cgColor
-//        cell.genreLabel.lineBreakMode = .byWordWrapping
-//        return cell
-//    }
+extension ViewController: UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return genres.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "genreCell", for: indexPath) as! GenreCollectionViewCell
+
+        //cell.genreLabel.text = genres[indexPath.row]
+        cell.genreLabel.text = genres[indexPath.row].name
+        cell.contentView.layer.cornerRadius = 5
+        cell.contentView.layer.borderWidth = 1.0
+        cell.contentView.layer.borderColor = UIColor.orange.cgColor
+        cell.genreLabel.lineBreakMode = .byWordWrapping
+        return cell
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
@@ -74,20 +62,5 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         cell.configure(with: movies[indexPath.row])
         return cell
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showDetails", sender: self)
-    }
-}
-
-extension ViewController {
-//    func loadGenres() {
-//        networkManager.loadGenres {[weak self] genres in
-//            self?.genres = genres
-//        }
-//    }
-    func loadMovies() {
-        networkManager.loadTodayMovies { [weak self] movies in
-            self?.movies = movies
-        }
-    }
+ 
 }

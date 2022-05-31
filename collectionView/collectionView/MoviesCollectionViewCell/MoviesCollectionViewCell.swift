@@ -21,6 +21,7 @@ class MoviesCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with movie: Movie, genre: [Genre]) {
+        ratingContainerView.layer.cornerRadius = 3
         NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in
             self?.posterImageView.image = UIImage(data: imageData)
         })

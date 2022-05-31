@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
     
     
     private var sectionNames: [String] = ["Today at the cinema", "Coming soon", "Trending"]
+    
     private var networkManager = NetworkManager.shared
     
     private var genres: [Genre] = []
@@ -37,14 +38,17 @@ class HomeViewController: UIViewController {
         }
     }
     
-    lazy var sectionMovies: [[Movie]] = []
+    lazy var sectionMovies: [[Movie]] = [] {
+        didSet{
+            tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadGenres()
         loadMovies()
         configureTableView()
-        
     }
     
     private func configureTableView() {
@@ -57,19 +61,20 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         sectionMovies.count
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        25
-    }
-    
+  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        print(sectionNames[indexPath.row])
+//        print(sectionMovies[indexPath.row])
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeMoviesSectionCell", for: indexPath) as! HomeMoviesSectionCell
         cell.configure(with: (title: sectionNames[indexPath.row], movies: sectionMovies[indexPath.row]), genre: genres)
         cell.onAllMoviesButtonDidTap = {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AllMoviesController") as! ViewController
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            vc.movies = self.sectionMovies[indexPath.row]
+            vc.genres = self.genres
             self.navigationController?.pushViewController(vc, animated: true)
         }
         return cell
@@ -77,11 +82,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeViewController {
-    
-    
-    
-    func loadGenres() {
         
+    func loadGenres() {
         networkManager.loadGenres {[weak self] genres in
             guard let self = self else { return }
             self.genres = genres
@@ -92,16 +94,17 @@ extension HomeViewController {
         networkManager.loadTrendingMovies { [weak self] movies in
             self?.trendingMovies = movies
             self?.sectionMovies.append(movies)
+            //print("Trending: ", self?.sectionMovies)
         }
         networkManager.loadSoonMovies { [weak self] movies in
             self?.soonMovies = movies
             self?.sectionMovies.append(movies)
+            //print("Soon: ", self?.sectionMovies)
         }
         networkManager.loadTodayMovies { [weak self] movies in
             self?.todayMovies = movies
             self?.sectionMovies.append(movies)
+            //print("Today: ", self?.sectionMovies)
         }
-        
-        
     }
 }
