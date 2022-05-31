@@ -21,9 +21,9 @@ class MoviesCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with movie: Movie, genre: [Genre]) {
-        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in self?.posterImageView.image = UIImage(data: imageData)
+        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in
+            self?.posterImageView.image = UIImage(data: imageData)
         })
-        print("Movie poster: ", movie.posterPath)
         nameLabel.text = movie.originalTitle
         ratingLabel.text = "★ \(movie.voteAverage)"
         genreLabel.text = getGenres(by: movie.genreIds, genres: genre)

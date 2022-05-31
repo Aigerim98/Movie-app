@@ -19,11 +19,13 @@ class MovieTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
     @IBOutlet private var movieRatingLabel: UILabel!
     @IBOutlet private var movieRatingContainerView: UIView!
     @IBOutlet private var movieReleaseDateLabel: UILabel!
     @IBOutlet private var movieNameLabel: UILabel!
     @IBOutlet private var posterImageView: UIImageView!
+    
     func configure(with movie: Movie){
         NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in self?.posterImageView.image = UIImage(data: imageData)})
         movieNameLabel.text = movie.originalTitle
@@ -36,4 +38,5 @@ class MovieTableViewCell: UITableViewCell {
             movieRatingContainerView.backgroundColor =  .systemGreen
         }
     }
+    
 }

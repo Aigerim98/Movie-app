@@ -16,13 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="355"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today at in the cinema" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Bk-9Y-vgc">
-                        <rect key="frame" x="16" y="32" width="288" height="26"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Z6D-Ny-jhj">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Z6D-Ny-jhj">
                         <rect key="frame" x="16" y="74" width="288" height="270"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -35,15 +29,27 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KSw-Gb-LIx">
+                        <rect key="frame" x="270.5" y="32" width="40.5" height="26"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title="All"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today at in the cinema" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Bk-9Y-vgc">
+                        <rect key="frame" x="16" y="31" width="237" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="Z6D-Ny-jhj" firstAttribute="top" secondItem="2Bk-9Y-vgc" secondAttribute="bottom" constant="16" id="5ME-6G-jQ7"/>
-                    <constraint firstItem="Z6D-Ny-jhj" firstAttribute="leading" secondItem="2Bk-9Y-vgc" secondAttribute="leading" id="81i-05-GkP"/>
-                    <constraint firstAttribute="trailing" secondItem="2Bk-9Y-vgc" secondAttribute="trailing" constant="16" id="aj6-C5-ajR"/>
-                    <constraint firstItem="Z6D-Ny-jhj" firstAttribute="trailing" secondItem="2Bk-9Y-vgc" secondAttribute="trailing" id="cxA-dM-du7"/>
-                    <constraint firstItem="2Bk-9Y-vgc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="32" id="fCH-HD-mc6"/>
-                    <constraint firstItem="2Bk-9Y-vgc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="wgP-Vv-mWh"/>
+                    <constraint firstItem="Z6D-Ny-jhj" firstAttribute="top" secondItem="KSw-Gb-LIx" secondAttribute="bottom" constant="16" id="A0M-jR-K6s"/>
+                    <constraint firstItem="KSw-Gb-LIx" firstAttribute="leading" secondItem="2Bk-9Y-vgc" secondAttribute="trailing" constant="17.5" id="WLl-zU-x8H"/>
+                    <constraint firstItem="2Bk-9Y-vgc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="31" id="XBZ-CP-BG3"/>
+                    <constraint firstItem="Z6D-Ny-jhj" firstAttribute="top" secondItem="2Bk-9Y-vgc" secondAttribute="bottom" constant="14" id="YJc-h4-mF2"/>
+                    <constraint firstItem="2Bk-9Y-vgc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="YOb-WD-qyn"/>
+                    <constraint firstAttribute="trailing" secondItem="KSw-Gb-LIx" secondAttribute="trailing" constant="9" id="bdS-sP-Gtw"/>
+                    <constraint firstItem="KSw-Gb-LIx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="32" id="mnd-GS-Xk9"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Z6D-Ny-jhj" secondAttribute="bottom" id="zgM-Q5-11s"/>
                 </constraints>
             </tableViewCellContentView>

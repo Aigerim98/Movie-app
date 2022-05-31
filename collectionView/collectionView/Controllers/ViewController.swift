@@ -37,17 +37,7 @@ class ViewController: UIViewController {
 //        genreCollection.delegate = self
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-//        if let destination = segue.destination as? MovieDetailsViewController {
-//            destination.image = movies[(movieTable.indexPathForSelectedRow?.row)!].poster
-//            destination.cast = movies[(movieTable.indexPathForSelectedRow?.row)!].cast ?? []
-//            destination.rating = movies[(movieTable.indexPathForSelectedRow?.row)!].rating
-//            destination.descriptionText = movies[(movieTable.indexPathForSelectedRow?.row)!].description
-//            destination.movieNameText = movies[(movieTable.indexPathForSelectedRow?.row)!].name ?? ""
-//            destination.releaseDate = movies[(movieTable.indexPathForSelectedRow?.row)!].dateOfRelease ?? ""
-//            movieTable.deselectRow(at: movieTable.indexPathForSelectedRow!, animated: true)
-//        }
-//    }
+
     
 }
 

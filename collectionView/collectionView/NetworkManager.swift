@@ -30,6 +30,7 @@ class NetworkManager {
     private init() {
         session = URLSession(configuration: .default)
     }
+    
     func loadTodayMovies(completion: @escaping ([Movie]) -> Void){
         loadMovies(path: "/3/movie/now_playing") {movies in
             completion(movies)
@@ -52,7 +53,6 @@ class NetworkManager {
     }
     
     func loadGenres(completion: @escaping ([Genre]) -> Void) {
-        //var urlComponents = URLComponents(string: MOVIE_GENRES_URL)
         var components = urlComponents
         components.path = "/3/genre/movie/list"
         
@@ -125,9 +125,10 @@ class NetworkManager {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "image.tmdb.org"
-        components.path = "t/p/w200\(path)"
+        components.path = "/t/p/w200\(path)"
         
         guard let requestUrl = components.url else {
+            print(components.url)
             return
         }
         if let imageData = imagesCache.object(forKey: requestUrl.absoluteString as NSString) {
@@ -150,7 +151,8 @@ class NetworkManager {
             do {
                 let imageData = try Data (contentsOf: localUrl)
                 DispatchQueue.main.sync {
-                    self.imagesCache.setObject(imageData as NSData, forKey: requestUrl.absoluteString as NSString) 
+                    self.imagesCache.setObject(imageData as NSData, forKey: requestUrl.absoluteString as NSString)
+                    print("image")
                     completion(imageData)
                 }
             }catch {

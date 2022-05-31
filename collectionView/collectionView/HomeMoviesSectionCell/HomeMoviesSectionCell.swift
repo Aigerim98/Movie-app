@@ -44,6 +44,7 @@ class HomeMoviesSectionCell: UITableViewCell {
 }
 
 extension HomeMoviesSectionCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoviesCollectionViewCell", for: indexPath) as! MoviesCollectionViewCell
         cell.configure(with: movies[indexPath.item], genre: genres)
@@ -57,4 +58,5 @@ extension HomeMoviesSectionCell: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: 128, height: 270)
     }
+    
 }
