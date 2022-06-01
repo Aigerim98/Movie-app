@@ -58,6 +58,14 @@ class HomeViewController: UIViewController {
         tableView.estimatedRowHeight = 355
         tableView.rowHeight = UITableView.automaticDimension
     }
+    
+    func moveOnMovieDetails(tableIndex: Int, collectionIndex: Int) {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "MovieDetailsViewController") as? MovieDetailsViewController else {
+            return
+        }
+        vc.movie = sectionMovies[tableIndex][collectionIndex]
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -67,18 +75,25 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        print(sectionNames[indexPath.row])
-//        print(sectionMovies[indexPath.row])
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeMoviesSectionCell", for: indexPath) as! HomeMoviesSectionCell
         cell.configure(with: (title: sectionNames[indexPath.row], movies: sectionMovies[indexPath.row]), genre: genres)
-        cell.onAllMoviesButtonDidTap = {
+        cell.onAllMoviesButtonDidTap = { [weak self] in
+            guard let self = self else {return}
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
             vc.movies = self.sectionMovies[indexPath.row]
             vc.genres = self.genres
             self.navigationController?.pushViewController(vc, animated: true)
         }
+        //cell.index = indexPath.row
+        cell.didSelectCollectionClosure = {[weak self] item in
+            if let item = item {
+                self?.moveOnMovieDetails(tableIndex: indexPath.row, collectionIndex: item)
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
+        }
         return cell
     }
+
 }
 
 extension HomeViewController {

@@ -86,8 +86,43 @@ class NetworkManager {
         task.resume()
     }
     
+    func loadCredits(movieID: Int, completion: @escaping ([Cast]) -> Void) {
+        var components = urlComponents
+        components.path = "/3/movie/\(movieID)/credits"
+        //print(components.url)
+        guard let requestUrl = components.url else {
+            return
+        }
+        print(requestUrl)
+        let task = session.dataTask(with: requestUrl) { data, response, error in
+            guard error == nil else {
+                print("Error: error calling GET")
+                return
+            }
+            guard let data = data else {
+                print("Error: Did not receive cast data")
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200..<300) ~= response.statusCode else {
+                print("Error: HTTP request for cast failed")
+                return
+            }
+            do {
+                let creditsEntity = try JSONDecoder().decode(CreditsEntity.self, from: data)
+                DispatchQueue.main.async {
+                    print("credits")
+                    completion(creditsEntity.cast)
+                }
+            }catch {
+                DispatchQueue.main.async {
+                    completion([])
+                }
+            }
+        }
+        task.resume()
+    }
+    
     private func loadMovies(path: String, completion: @escaping ([Movie]) -> Void) {
-        //var urlComponents = URLComponents(string: MOVIE_GENRES_URL)
         var components = urlComponents
         components.path = path
         
@@ -128,7 +163,6 @@ class NetworkManager {
         components.path = "/t/p/w200\(path)"
         
         guard let requestUrl = components.url else {
-            print(components.url)
             return
         }
         if let imageData = imagesCache.object(forKey: requestUrl.absoluteString as NSString) {
@@ -152,7 +186,6 @@ class NetworkManager {
                 let imageData = try Data (contentsOf: localUrl)
                 DispatchQueue.main.sync {
                     self.imagesCache.setObject(imageData as NSData, forKey: requestUrl.absoluteString as NSString)
-                    print("image")
                     completion(imageData)
                 }
             }catch {

@@ -20,4 +20,14 @@ class MoviesCastCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
 
+    func configure(with cast: Cast){
+        NetworkManager.shared.loadImage(with: cast.profilePath ?? "", completion: {[weak self] imageData in
+            self?.castImageView.image = UIImage(data: imageData)
+        })
+        castNameLabel.text = cast.name
+        castRoleLabel.text = cast.role
+        castImageView.clipsToBounds = true
+        castImageView.layer.cornerRadius = castImageView.frame.size.height / 2
+    }
+
 }

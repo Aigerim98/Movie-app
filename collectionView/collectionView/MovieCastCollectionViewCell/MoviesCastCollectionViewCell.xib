@@ -16,21 +16,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="98" height="145"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1x5-4d-jMy">
-                        <rect key="frame" x="9" y="15" width="80" height="80"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1x5-4d-jMy">
+                        <rect key="frame" x="9" y="16" width="80.5" height="80.5"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="1x5-4d-jMy" secondAttribute="height" multiplier="1:1" id="JFB-qS-Ivi"/>
+                            <constraint firstAttribute="width" constant="80.5" id="ay0-Uy-Wez"/>
+                            <constraint firstAttribute="width" secondItem="1x5-4d-jMy" secondAttribute="height" multiplier="1:1" id="vAB-GF-jiy"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkf-aB-7wT">
-                        <rect key="frame" x="9" y="124" width="80" height="17"/>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1g-BD-UTC">
+                        <rect key="frame" x="9" y="104.5" width="80" height="20.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1g-BD-UTC">
-                        <rect key="frame" x="9" y="104" width="80" height="21"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkf-aB-7wT">
+                        <rect key="frame" x="9" y="119" width="80" height="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -39,16 +40,14 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="1x5-4d-jMy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="9" id="C1N-bM-bc6"/>
-                <constraint firstAttribute="bottom" secondItem="M1g-BD-UTC" secondAttribute="bottom" constant="20" id="Cpm-fb-1Sv"/>
+                <constraint firstItem="M1g-BD-UTC" firstAttribute="top" secondItem="1x5-4d-jMy" secondAttribute="bottom" constant="8" id="9ho-3m-p2x"/>
                 <constraint firstItem="M1g-BD-UTC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="9" id="HxA-sq-QvU"/>
-                <constraint firstItem="M1g-BD-UTC" firstAttribute="top" secondItem="1x5-4d-jMy" secondAttribute="bottom" constant="9" id="O1B-nq-5Bw"/>
-                <constraint firstAttribute="bottom" secondItem="vkf-aB-7wT" secondAttribute="bottom" constant="4" id="eZ6-UV-sJ9"/>
+                <constraint firstItem="1x5-4d-jMy" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="U4X-7o-cqb"/>
+                <constraint firstAttribute="bottom" secondItem="vkf-aB-7wT" secondAttribute="bottom" constant="9" id="eZ6-UV-sJ9"/>
+                <constraint firstItem="1x5-4d-jMy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="16" id="fbZ-hu-lIV"/>
                 <constraint firstItem="vkf-aB-7wT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="9" id="mQM-27-5OP"/>
-                <constraint firstItem="1x5-4d-jMy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="syf-pK-zFp"/>
                 <constraint firstAttribute="trailing" secondItem="vkf-aB-7wT" secondAttribute="trailing" constant="9" id="uvQ-mK-Pq5"/>
                 <constraint firstAttribute="trailing" secondItem="M1g-BD-UTC" secondAttribute="trailing" constant="9" id="vvj-9q-Xmd"/>
-                <constraint firstAttribute="trailing" secondItem="1x5-4d-jMy" secondAttribute="trailing" constant="9" id="wT9-Bx-lKs"/>
             </constraints>
             <size key="customSize" width="98" height="145"/>
             <connections>
@@ -56,7 +55,7 @@
                 <outlet property="castNameLabel" destination="M1g-BD-UTC" id="6ku-Df-jDt"/>
                 <outlet property="castRoleLabel" destination="vkf-aB-7wT" id="SBM-vI-EDY"/>
             </connections>
-            <point key="canvasLocation" x="-561" y="40"/>
+            <point key="canvasLocation" x="-562.31884057971024" y="39.84375"/>
         </collectionViewCell>
     </objects>
 </document>

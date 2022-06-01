@@ -15,6 +15,7 @@ struct Movie: Decodable {
         case voteAverage = "vote_average"
         case posterPath = "poster_path"
         case genreIds = "genre_ids"
+        case description = "overview"
     }
     
     let id: Int
@@ -23,6 +24,7 @@ struct Movie: Decodable {
     let voteAverage: Double
     let posterPath: String?
     let genreIds: [Int]
+    let description: String?
 }
 
 struct MoviesEntity: Decodable {

@@ -8,6 +8,7 @@
 import UIKit
 
 typealias Callback = () -> Void
+typealias DidSelectClosure = ((_ index: Int?) -> Void)
 
 class HomeMoviesSectionCell: UITableViewCell {
     
@@ -18,9 +19,12 @@ class HomeMoviesSectionCell: UITableViewCell {
     }
     
     @IBOutlet var allMovieButton: UIButton!
+    
     private var genres: [Genre] = []
+   
     var onAllMoviesButtonDidTap: Callback?
-
+    var didSelectCollectionClosure: DidSelectClosure?
+    
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var collectionView: UICollectionView!
     
@@ -65,4 +69,10 @@ extension HomeMoviesSectionCell: UICollectionViewDelegate, UICollectionViewDataS
         CGSize(width: 128, height: 270)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        didSelectCollectionClosure?(indexPath.item)
+    }
+    
 }
+
+
