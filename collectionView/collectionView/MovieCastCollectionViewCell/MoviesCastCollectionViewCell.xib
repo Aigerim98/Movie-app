@@ -16,9 +16,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="98" height="145"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1x5-4d-jMy">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1x5-4d-jMy">
                         <rect key="frame" x="9" y="16" width="80.5" height="80.5"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="80.5" id="Dra-fi-WaI"/>
                             <constraint firstAttribute="width" constant="80.5" id="ay0-Uy-Wez"/>
                             <constraint firstAttribute="width" secondItem="1x5-4d-jMy" secondAttribute="height" multiplier="1:1" id="vAB-GF-jiy"/>
                         </constraints>

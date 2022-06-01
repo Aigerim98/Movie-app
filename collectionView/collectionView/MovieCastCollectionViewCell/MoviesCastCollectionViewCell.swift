@@ -17,6 +17,8 @@ class MoviesCastCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        castImageView.clipsToBounds = true
+        castImageView.layer.cornerRadius = castImageView.frame.size.height / 2
         // Initialization code
     }
 
@@ -26,8 +28,6 @@ class MoviesCastCollectionViewCell: UICollectionViewCell {
         })
         castNameLabel.text = cast.name
         castRoleLabel.text = cast.role
-        castImageView.clipsToBounds = true
-        castImageView.layer.cornerRadius = castImageView.frame.size.height / 2
     }
 
 }
