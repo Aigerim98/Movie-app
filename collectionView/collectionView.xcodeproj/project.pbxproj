@@ -27,8 +27,11 @@
 		02C5BAC32832633D00A78353 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C5BAC12832633D00A78353 /* Main.storyboard */; };
 		02C5BAC52832633D00A78353 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02C5BAC42832633D00A78353 /* Assets.xcassets */; };
 		02C5BAC82832633D00A78353 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C5BAC62832633D00A78353 /* LaunchScreen.storyboard */; };
+		02F9F1C3284F26E4002C4A04 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 02F9F1C2284F26E4002C4A04 /* Alamofire */; };
+		02F9F1C6284F27E6002C4A04 /*  AlamofireNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F9F1C5284F27E6002C4A04 /*  AlamofireNetworkManager.swift */; };
 		02FB3A0B283E3D0300411848 /* MoviesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FB3A09283E3D0300411848 /* MoviesCollectionViewCell.swift */; };
 		02FB3A0C283E3D0300411848 /* MoviesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FB3A0A283E3D0300411848 /* MoviesCollectionViewCell.xib */; };
+		70F506671B972BEC4C853A9B /* Pods_collectionView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF0F94611D226017935E352 /* Pods_collectionView.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,8 +57,12 @@
 		02C5BAC42832633D00A78353 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02C5BAC72832633D00A78353 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02C5BAC92832633D00A78353 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02F9F1C5284F27E6002C4A04 /*  AlamofireNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " AlamofireNetworkManager.swift"; sourceTree = "<group>"; };
 		02FB3A09283E3D0300411848 /* MoviesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesCollectionViewCell.swift; sourceTree = "<group>"; };
 		02FB3A0A283E3D0300411848 /* MoviesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoviesCollectionViewCell.xib; sourceTree = "<group>"; };
+		0AF0F94611D226017935E352 /* Pods_collectionView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_collectionView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42BA5B313B14910770433B1B /* Pods-collectionView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-collectionView.release.xcconfig"; path = "Target Support Files/Pods-collectionView/Pods-collectionView.release.xcconfig"; sourceTree = "<group>"; };
+		88DA13CE99B6B91864AB5F57 /* Pods-collectionView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-collectionView.debug.xcconfig"; path = "Target Support Files/Pods-collectionView/Pods-collectionView.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70F506671B972BEC4C853A9B /* Pods_collectionView.framework in Frameworks */,
+				02F9F1C3284F26E4002C4A04 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +114,8 @@
 			children = (
 				02C5BABA2832633D00A78353 /* collectionView */,
 				02C5BAB92832633D00A78353 /* Products */,
+				7A9C173211242D091169856E /* Pods */,
+				490108C4ED5428A2C419DA3E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +130,7 @@
 		02C5BABA2832633D00A78353 /* collectionView */ = {
 			isa = PBXGroup;
 			children = (
+				02F9F1C4284F27CB002C4A04 /* Network connection */,
 				029C9D7F2840D54F00F0C9BD /* Entities */,
 				029C9D7C2840D1BB00F0C9BD /* Controllers */,
 				02FB3A08283E3CE500411848 /* MoviesCollectionViewCell */,
@@ -132,9 +144,17 @@
 				0217794E2833929F008AADEB /* MovieTableViewCell.swift */,
 				0246586928374DF900B7D8C7 /* GenreCollectionViewCell.swift */,
 				021D1E07283F395600BCA7F7 /* MovieCastCollectionViewCell */,
-				029C9D822840D8DC00F0C9BD /* NetworkManager.swift */,
 			);
 			path = collectionView;
+			sourceTree = "<group>";
+		};
+		02F9F1C4284F27CB002C4A04 /* Network connection */ = {
+			isa = PBXGroup;
+			children = (
+				029C9D822840D8DC00F0C9BD /* NetworkManager.swift */,
+				02F9F1C5284F27E6002C4A04 /*  AlamofireNetworkManager.swift */,
+			);
+			path = "Network connection";
 			sourceTree = "<group>";
 		};
 		02FB3A07283E3CB900411848 /* HomeMoviesSectionCell */ = {
@@ -155,6 +175,23 @@
 			path = MoviesCollectionViewCell;
 			sourceTree = "<group>";
 		};
+		490108C4ED5428A2C419DA3E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0AF0F94611D226017935E352 /* Pods_collectionView.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A9C173211242D091169856E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				88DA13CE99B6B91864AB5F57 /* Pods-collectionView.debug.xcconfig */,
+				42BA5B313B14910770433B1B /* Pods-collectionView.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -162,15 +199,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02C5BACC2832633D00A78353 /* Build configuration list for PBXNativeTarget "collectionView" */;
 			buildPhases = (
+				08EAD8194D1A7DD82EFB03DA /* [CP] Check Pods Manifest.lock */,
 				02C5BAB42832633D00A78353 /* Sources */,
 				02C5BAB52832633D00A78353 /* Frameworks */,
 				02C5BAB62832633D00A78353 /* Resources */,
+				DF053AE6A1540178501C2BF8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = collectionView;
+			packageProductDependencies = (
+				02F9F1C2284F26E4002C4A04 /* Alamofire */,
+			);
 			productName = collectionView;
 			productReference = 02C5BAB82832633D00A78353 /* collectionView.app */;
 			productType = "com.apple.product-type.application";
@@ -199,6 +241,9 @@
 				Base,
 			);
 			mainGroup = 02C5BAAF2832633D00A78353;
+			packageReferences = (
+				02F9F1C1284F26E4002C4A04 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 02C5BAB92832633D00A78353 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -224,6 +269,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		08EAD8194D1A7DD82EFB03DA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-collectionView-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF053AE6A1540178501C2BF8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-collectionView/Pods-collectionView-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-collectionView/Pods-collectionView-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-collectionView/Pods-collectionView-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		02C5BAB42832633D00A78353 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -237,6 +324,7 @@
 				02C5BAC02832633D00A78353 /* ViewController.swift in Sources */,
 				0217794F2833929F008AADEB /* MovieTableViewCell.swift in Sources */,
 				0298568D283C969D00A8D140 /* HomeViewController.swift in Sources */,
+				02F9F1C6284F27E6002C4A04 /*  AlamofireNetworkManager.swift in Sources */,
 				029C9D812840D66D00F0C9BD /* MovieDetailsEntity.swift in Sources */,
 				02A4AF7828473349009E0584 /* CastEntity.swift in Sources */,
 				02C5BABC2832633D00A78353 /* AppDelegate.swift in Sources */,
@@ -386,6 +474,7 @@
 		};
 		02C5BACD2832633D00A78353 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88DA13CE99B6B91864AB5F57 /* Pods-collectionView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -414,6 +503,7 @@
 		};
 		02C5BACE2832633D00A78353 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42BA5B313B14910770433B1B /* Pods-collectionView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -462,6 +552,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		02F9F1C1284F26E4002C4A04 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		02F9F1C2284F26E4002C4A04 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02F9F1C1284F26E4002C4A04 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 02C5BAB02832633D00A78353 /* Project object */;
 }

@@ -9,13 +9,10 @@ import Foundation
 
 class NetworkManager {
     
-    
-    
     private let API_KEY = "e516e695b99f3043f08979ed2241b3db"
     static var shared = NetworkManager()
     
     private let session: URLSession
-    var imagesCache = NSCache<NSString, NSData>()
     
     private lazy var urlComponents: URLComponents = {
         var components = URLComponents()
@@ -59,6 +56,7 @@ class NetworkManager {
         guard let requestUrl = components.url else {
             return
         }
+        
         let task = session.dataTask(with: requestUrl) { data, response, error in
             guard error == nil else {
                 print("Error: error calling GET")
@@ -86,14 +84,47 @@ class NetworkManager {
         task.resume()
     }
     
-    func loadCredits(movieID: Int, completion: @escaping ([Cast]) -> Void) {
+    func loadMovieDetails(movieID: Int, completion: @escaping (MovieDetailsEntity) -> Void) {
         var components = urlComponents
-        components.path = "/3/movie/\(movieID)/credits"
-        //print(components.url)
+        components.path = "/3/movie/\(movieID)"
+
         guard let requestUrl = components.url else {
             return
         }
-        print(requestUrl)
+
+        let task = session.dataTask(with: requestUrl) { data, response, error in
+            guard error == nil else {
+                print("Error: error calling GET")
+                return
+            }
+            guard let data = data else {
+                print("Error: Did not receive movie details data")
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200..<300) ~= response.statusCode else {
+                print("Error: HTTP request for movie details failed")
+                return
+            }
+            do {
+                let movieDetailsEntity = try JSONDecoder().decode(MovieDetailsEntity.self, from: data)
+                DispatchQueue.main.async {
+                    completion(movieDetailsEntity)
+                }
+            } catch {
+                    DispatchQueue.main.async {}
+            }
+        }
+        task.resume()
+    }
+        
+    func loadCredits(movieID: Int, completion: @escaping ([Cast]) -> Void) {
+        var components = urlComponents
+        components.path = "/3/movie/\(movieID)/credits"
+     
+        guard let requestUrl = components.url else {
+            return
+        }
+   
         let task = session.dataTask(with: requestUrl) { data, response, error in
             guard error == nil else {
                 print("Error: error calling GET")
@@ -110,7 +141,6 @@ class NetworkManager {
             do {
                 let creditsEntity = try JSONDecoder().decode(CreditsEntity.self, from: data)
                 DispatchQueue.main.async {
-                    print("credits")
                     completion(creditsEntity.cast)
                 }
             }catch {
@@ -143,6 +173,7 @@ class NetworkManager {
                 return
             }
             do {
+//                JSONDecoder.KeyDecodingStrategy.convertFromSnakeCase
                 let moviesEntity = try JSONDecoder().decode(MoviesEntity.self, from: data)
                 DispatchQueue.main.sync {
                     completion(moviesEntity.results)
@@ -150,47 +181,6 @@ class NetworkManager {
             }catch {
                 DispatchQueue.main.sync {
                     completion([])
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    func loadImage(with path: String, completion: @escaping (Data) -> Void ){
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "image.tmdb.org"
-        components.path = "/t/p/w200\(path)"
-        
-        guard let requestUrl = components.url else {
-            return
-        }
-        if let imageData = imagesCache.object(forKey: requestUrl.absoluteString as NSString) {
-            completion(imageData as Data)
-            return
-        }
-        let task = session.downloadTask(with: requestUrl) { localUrl, response, error in
-            guard error == nil else {
-                print("Error: error calling GET")
-                return
-            }
-            guard let localUrl = localUrl else {
-                print("Error: Did not receive data")
-                return
-            }
-            guard let response = response as? HTTPURLResponse, (200..<300) ~= response.statusCode else{
-                print("Error: HTTP request failed")
-                return
-            }
-            do {
-                let imageData = try Data (contentsOf: localUrl)
-                DispatchQueue.main.sync {
-                    self.imagesCache.setObject(imageData as NSData, forKey: requestUrl.absoluteString as NSString)
-                    completion(imageData)
-                }
-            }catch {
-                DispatchQueue.main.sync {
-                    print("Error with downloading image")
                 }
             }
         }

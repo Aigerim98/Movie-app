@@ -1,11 +1,12 @@
 //
 //  MoviesCollectionViewCell.swift
 //  collectionView
-//
+//r
 //  Created by Aigerim Abdurakhmanova on 25.05.2022.
 //
 
 import UIKit
+import Kingfisher
 
 class MoviesCollectionViewCell: UICollectionViewCell {
 
@@ -21,10 +22,12 @@ class MoviesCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with movie: Movie, genre: [Genre]) {
+        let url = URL(string: movie.posterUrl ?? "")
+        posterImageView.kf.setImage(with: url)
         ratingContainerView.layer.cornerRadius = 3
-        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in
-            self?.posterImageView.image = UIImage(data: imageData)
-        })
+//        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in
+//            self?.posterImageView.image = UIImage(data: imageData)
+//        })
         nameLabel.text = movie.originalTitle
         ratingLabel.text = "★ \(movie.voteAverage)"
         genreLabel.text = getGenres(by: movie.genreIds, genres: genre)

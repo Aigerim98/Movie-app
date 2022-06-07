@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MovieTableViewCell: UITableViewCell {
 
@@ -28,7 +29,8 @@ class MovieTableViewCell: UITableViewCell {
     
     func configure(with movie: Movie){
         movieRatingContainerView.layer.cornerRadius = 5
-        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in self?.posterImageView.image = UIImage(data: imageData)})
+        let url = URL(string: movie.posterUrl ?? "")
+        posterImageView.kf.setImage(with: url)
         movieNameLabel.text = movie.originalTitle
         movieRatingLabel.text = "★ \(movie.voteAverage)"
         movieReleaseDateLabel.text = movie.releaseDate

@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MovieDetailsViewController: UIViewController {
 
     var movie: Movie!
     private var networkManager = NetworkManager.shared
     
-    private var credits: [Cast] = [] {
+    private var casts: [Cast] = [] {
         didSet{
             castCollectionView.reloadData()
         }
@@ -43,9 +44,9 @@ class MovieDetailsViewController: UIViewController {
     }
    
     private func setData() {
-        NetworkManager.shared.loadImage(with: movie.posterPath ?? "", completion: {[weak self] imageData in
-            self?.posterImageView.image = UIImage(data: imageData)
-        })
+        let url = URL(string: movie.posterUrl ?? "")
+        posterImageView.kf.setImage(with: url)
+        ratingContainerView.layer.cornerRadius = 3
         dateOfReleaseLabel.text = movie.releaseDate
         movieNameLabel.text = movie.originalTitle
         movieDescriptionLabel.text = movie.description
@@ -69,13 +70,12 @@ func setRatingColor(rating: Double) -> UIColor {
 extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return credits.count
+        return casts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoviesCastCollectionViewCell", for: indexPath) as! MoviesCastCollectionViewCell
-        print(credits[indexPath.row])
-        cell.configure(with: credits[indexPath.row])
+        cell.configure(with: casts[indexPath.row])
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -86,9 +86,8 @@ extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionView
 extension MovieDetailsViewController {
     
     func loadCredits() {
-        networkManager.loadCredits(movieID: movie.id) { [weak self] credits in
-            print(credits)
-            self?.credits = credits
+        networkManager.loadCredits(movieID: movie.id) { [weak self] casts in
+            self?.casts = casts
         }
     }
 }

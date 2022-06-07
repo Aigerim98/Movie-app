@@ -8,6 +8,7 @@
 import Foundation
 
 struct Movie: Decodable {
+    
     enum CodingKeys: String, CodingKey {
         case id
         case originalTitle = "original_title"
@@ -22,9 +23,24 @@ struct Movie: Decodable {
     let originalTitle: String?
     let releaseDate: String?
     let voteAverage: Double
-    let posterPath: String?
+    let posterUrl: String?
     let genreIds: [Int]
     let description: String?
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        originalTitle = try? container.decodeIfPresent(String.self, forKey: .originalTitle)
+        releaseDate = try? container.decodeIfPresent(String.self, forKey: .releaseDate)
+        voteAverage = try container.decode(Double.self, forKey: .voteAverage)
+        if let posterPath = try? container.decodeIfPresent(String.self, forKey: .posterPath) {
+            self.posterUrl = "https://image.tmdb.org/t/p/w200\(posterPath)"
+        } else {
+            posterUrl = nil
+        }
+        genreIds = try container.decode([Int].self, forKey: .genreIds)
+        description = try? container.decodeIfPresent(String.self, forKey: .description)
+    }
 }
 
 struct MoviesEntity: Decodable {

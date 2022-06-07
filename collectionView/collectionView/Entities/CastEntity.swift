@@ -21,8 +21,6 @@ struct Cast: Decodable {
     let profilePath: String?
 }
 
-
-
 struct CreditsEntity: Decodable {
     let cast: [Cast]
     let id: Int
