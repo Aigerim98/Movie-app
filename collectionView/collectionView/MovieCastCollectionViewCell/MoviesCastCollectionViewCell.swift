@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MoviesCastCollectionViewCell: UICollectionViewCell {
 
@@ -23,9 +24,12 @@ class MoviesCastCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(with casts: Cast){
-        NetworkManager.shared.loadImage(with: casts.profilePath ?? "", completion: {[weak self] imageData in
-            self?.castImageView.image = UIImage(data: imageData)
-        })
+     
+        let url = URL(string: casts.profileUrl ?? "")
+        castImageView.kf.setImage(with: url)
+//        NetworkManager.shared.loadImage(with: casts.profilePath ?? "", completion: {[weak self] imageData in
+//            self?.castImageView.image = UIImage(data: imageData)
+//        })
         castNameLabel.text = casts.name
         castRoleLabel.text = casts.role
     }

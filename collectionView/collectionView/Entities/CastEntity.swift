@@ -18,7 +18,20 @@ struct Cast: Decodable {
     let id: Int
     let role: String?
     let name: String?
-    let profilePath: String?
+    //let profilePath: String?
+    let profileUrl: String?
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        name = try? container.decodeIfPresent(String.self, forKey: .name)
+        role = try? container.decodeIfPresent(String.self, forKey: .role)
+        if let posterPath = try? container.decodeIfPresent(String.self, forKey: .profilePath) {
+            self.profileUrl = "https://image.tmdb.org/t/p/w200\(posterPath)"
+        } else {
+            profileUrl = nil
+        }
+    }
 }
 
 struct CreditsEntity: Decodable {
