@@ -19,6 +19,20 @@ struct MovieDetailsEntity: Decodable {
     let originalTitle: String?
     let releaseDate: String?
     let voteAverage: Double
-    let backdropPath: String?
+   // let backdropPath: String?
+    let posterUrl: String?
     let description: String?
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        originalTitle = try? container.decodeIfPresent(String.self, forKey: .originalTitle)
+        releaseDate = try? container.decodeIfPresent(String.self, forKey: .releaseDate)
+        voteAverage = try container.decode(Double.self, forKey: .voteAverage)
+        if let posterPath = try? container.decodeIfPresent(String.self, forKey: .backdropPath) {
+            self.posterUrl = "https://image.tmdb.org/t/p/w200\(posterPath)"
+        } else {
+            posterUrl = nil
+        }
+        description = try? container.decodeIfPresent(String.self, forKey: .description)
+    }
 }

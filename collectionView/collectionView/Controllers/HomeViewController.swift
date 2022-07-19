@@ -64,6 +64,8 @@ class HomeViewController: UIViewController {
             return
         }
         vc.movie = sectionMovies[tableIndex][collectionIndex]
+        vc.movieId = sectionMovies[tableIndex][collectionIndex].id
+        
         navigationController?.pushViewController(vc, animated: true)
     }
 }

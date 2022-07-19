@@ -11,6 +11,9 @@ import Kingfisher
 class MovieDetailsViewController: UIViewController {
 
     var movie: Movie!
+    var movieId: Int!
+    var movieDeatils: MovieDetailsEntity!
+    
     private var networkManager = NetworkManager.shared
     
     private var casts: [Cast] = [] {
@@ -29,6 +32,8 @@ class MovieDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadMovieDetails()
         loadCredits()
         setData()
         configureCollectionView()
@@ -44,14 +49,14 @@ class MovieDetailsViewController: UIViewController {
     }
    
     private func setData() {
-        let url = URL(string: movie.posterUrl ?? "")
-        posterImageView.kf.setImage(with: url)
+//        let url = URL(string: movieDeatils.posterUrl ?? "")
+//        posterImageView.kf.setImage(with: url)
         ratingContainerView.layer.cornerRadius = 3
-        dateOfReleaseLabel.text = movie.releaseDate
-        movieNameLabel.text = movie.originalTitle
-        movieDescriptionLabel.text = movie.description
-        movieRatingLabel.text = "★ \(movie.voteAverage)"
-        ratingContainerView.backgroundColor = setRatingColor(rating: movie.voteAverage)
+//        dateOfReleaseLabel.text = movie.releaseDate
+//        movieNameLabel.text = movie.originalTitle
+//        movieDescriptionLabel.text = movie.description
+//        movieRatingLabel.text = "★ \(movie.voteAverage)"
+//        ratingContainerView.backgroundColor = setRatingColor(rating: movie.voteAverage)
         ratingContainerView.layer.cornerRadius = 5
     }
     
@@ -78,6 +83,7 @@ extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionView
         cell.configure(with: casts[indexPath.row])
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width/4, height: 165)
     }
@@ -86,8 +92,21 @@ extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionView
 extension MovieDetailsViewController {
     
     func loadCredits() {
-        networkManager.loadCredits(movieID: movie.id) { [weak self] casts in
+        networkManager.loadCredits(movieID: movieId!) { [weak self] casts in
             self?.casts = casts
+        }
+    }
+    
+    func loadMovieDetails() {
+        networkManager.loadMovieDetails(movieID: movieId) { [weak self] movieD in
+            let url = URL(string: movieD.posterUrl ?? "")
+            self?.posterImageView.kf.setImage(with: url)
+            
+            self?.dateOfReleaseLabel.text = movieD.releaseDate
+            self?.movieNameLabel.text = movieD.originalTitle
+            self?.movieDescriptionLabel.text = movieD.description
+            self?.movieRatingLabel.text = "★ \(movieD.voteAverage)"
+            self?.ratingContainerView.backgroundColor = setRatingColor(rating: movieD.voteAverage)
         }
     }
 }
