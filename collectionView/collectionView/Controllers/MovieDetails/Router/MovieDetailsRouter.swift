@@ -13,7 +13,7 @@ protocol MovieDetailsRouterInput {
 }
 
 final class MovieDetailsRouter: MovieDetailsRouterInput {
-    weak var viewController: ViewController?
+    weak var viewController: MovieDetailsViewController?
     
     func openCastModule(with castId: Int) {
         //cast module assembly

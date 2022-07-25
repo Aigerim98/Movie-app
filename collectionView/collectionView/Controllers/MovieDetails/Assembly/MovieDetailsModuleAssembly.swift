@@ -8,8 +8,14 @@
 import Foundation
 import UIKit
 
+protocol MovieDetailsModuleInput {
+    func configure(with movieId: Int)
+}
+
+typealias MovieDetailsModuleConfiguration = (MovieDetailsModuleInput) -> Void
+
 final class MovieDetailsModuleAssembly{
-    func assemble() -> MovieDetailsViewController {
+    func assemble(_ configuration: MovieDetailsModuleConfiguration) -> MovieDetailsViewController {
         let dataDisplayManager = MovieDetailsDataDisplayManager()
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController") as! MovieDetailsViewController
@@ -18,8 +24,18 @@ final class MovieDetailsModuleAssembly{
         
         let interactor = MovieDetailsInteractor(network: network)
         let router = MovieDetailsRouter()
-        vc.dataDisplayManager = dataDisplayManager
         
+        configuration(presenter)
+        
+        vc.dataDisplayManager = dataDisplayManager
+        vc.output = presenter
+        
+        presenter.view = vc
+        presenter.interactor = interactor
+        presenter.router = router
+        
+        interactor.output = presenter
+        router.viewController = vc
         return vc
     }
 }

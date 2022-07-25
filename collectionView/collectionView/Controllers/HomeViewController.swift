@@ -60,13 +60,11 @@ class HomeViewController: UIViewController {
     }
     
     func moveOnMovieDetails(tableIndex: Int, collectionIndex: Int) {
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "MovieDetailsViewController") as? MovieDetailsViewController else {
-            return
-        }
-        vc.movie = sectionMovies[tableIndex][collectionIndex]
-        vc.movieId = sectionMovies[tableIndex][collectionIndex].id
         
-        navigationController?.pushViewController(vc, animated: true)
+        //move to router
+        let vc = MovieDetailsModuleAssembly().assemble {[weak self] input in
+            input.configure(with: self?.sectionMovies[tableIndex][collectionIndex].id ?? 0)
+        }
     }
 }
 

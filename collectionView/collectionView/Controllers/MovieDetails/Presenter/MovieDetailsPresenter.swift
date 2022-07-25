@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MovieDetailsPresenter: MovieDetailsViewOutput, MovieDetailsInteractorOutput {
+final class MovieDetailsPresenter: MovieDetailsViewOutput, MovieDetailsInteractorOutput, MovieDetailsModuleInput {
     
     weak var view: MovieDetailsViewInput!
     var interactor: MovieDetailsInteractorInput!
@@ -32,5 +32,9 @@ final class MovieDetailsPresenter: MovieDetailsViewOutput, MovieDetailsInteracto
     func didLoadMovieCast(_ cast: [Cast]) {
         //notify view layer
         view.handleObtainedCast(cast)
+    }
+    
+    func configure(with movieId: Int) {
+        self.movieId = movieId
     }
 }
