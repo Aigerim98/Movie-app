@@ -9,6 +9,8 @@ import UIKit
 
 class CastMemberViewController: UIViewController {
 
+    var personId: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

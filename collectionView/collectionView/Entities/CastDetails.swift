@@ -18,7 +18,7 @@ struct CastDetails: Decodable {
         case biography = "biography"
     }
     
-    let id: Int?
+    let id: Int
     let name: String?
     let placeOfBirth: String?
     var biography: String?
@@ -27,10 +27,12 @@ struct CastDetails: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        id = try container.decode(Int.self, forKey: .id)
         name = try? container.decodeIfPresent(String.self, forKey: .name)
         biography = try? container.decodeIfPresent(String.self, forKey: .birthday)
         placeOfBirth = try? container.decodeIfPresent(String.self, forKey: .placeOfBirth)
-        biography = try? container.decodeIfPresent(String.self, forKey: .biography)
+        birthday = try? container.decodeIfPresent(String.self, forKey: .birthday)
         
         if let posterPath = try? container.decodeIfPresent(String.self, forKey: .profilePath) {
             self.profileUrl = "https://image.tmdb.org/t/p/w200\(posterPath)"
