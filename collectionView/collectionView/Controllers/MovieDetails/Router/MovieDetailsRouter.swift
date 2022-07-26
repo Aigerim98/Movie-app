@@ -16,10 +16,13 @@ final class MovieDetailsRouter: MovieDetailsRouterInput {
     weak var viewController: UIViewController?
     
     func openCastModule(with castId: Int) {
-        //cast module assembly
-        let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        guard let vc = storyBoard.instantiateViewController(withIdentifier: "CastMemberViewController") as? CastMemberViewController else { return }
-        vc.personId = castId
+        let vc = CastDetailsModuleAssembly().assemble { [weak self] input in
+            input.configure(with: castId)
+        }
+        
+//        let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//        guard let vc = storyBoard.instantiateViewController(withIdentifier: "CastMemberViewController") as? CastMemberViewController else { return }
+//        vc.personId = castId
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

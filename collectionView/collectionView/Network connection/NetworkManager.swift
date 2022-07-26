@@ -84,6 +84,41 @@ class NetworkManager {
         task.resume()
     }
     
+    func loadPersonDetails(castId: Int, completion: @escaping (CastDetails) -> Void) {
+        var components = urlComponents
+        components.path = "/3/person/\(castId)"
+
+        guard let requestUrl = components.url else {
+            return
+        }
+
+        print(requestUrl)
+        
+        let task = session.dataTask(with: requestUrl) { data, response, error in
+            guard error == nil else {
+                print("Error: error calling GET")
+                return
+            }
+            guard let data = data else {
+                print("Error: Did not receive movie details data")
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200..<300) ~= response.statusCode else {
+                print("Error: HTTP request for movie details failed")
+                return
+            }
+            do {
+                let castDetailsEntity = try JSONDecoder().decode(CastDetails.self, from: data)
+                DispatchQueue.main.async {
+                    completion(castDetailsEntity)
+                }
+            } catch {
+                    DispatchQueue.main.async {}
+            }
+        }
+        task.resume()
+    }
+    
     func loadMovieDetails(movieID: Int, completion: @escaping (MovieDetailsEntity) -> Void) {
         var components = urlComponents
         components.path = "/3/movie/\(movieID)"
