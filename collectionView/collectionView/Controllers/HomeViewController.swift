@@ -65,6 +65,7 @@ class HomeViewController: UIViewController {
         let vc = MovieDetailsModuleAssembly().assemble {[weak self] input in
             input.configure(with: self?.sectionMovies[tableIndex][collectionIndex].id ?? 0)
         }
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

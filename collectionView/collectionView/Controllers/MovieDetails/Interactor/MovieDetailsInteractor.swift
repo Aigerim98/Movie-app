@@ -19,7 +19,7 @@ protocol MovieDetailsInteractorOutput: AnyObject {
 
 final class MovieDetailsInteractor: MovieDetailsInteractorInput {
     weak var output: MovieDetailsInteractorOutput!
-    private var network: NetworkManager
+    private var network = NetworkManager.shared
     
     required init(network: NetworkManager) {
         self.network = network

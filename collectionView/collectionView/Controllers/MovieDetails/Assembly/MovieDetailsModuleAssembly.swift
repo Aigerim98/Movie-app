@@ -20,7 +20,7 @@ final class MovieDetailsModuleAssembly{
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController") as! MovieDetailsViewController
         let presenter = MovieDetailsPresenter()
-        let network: NetworkManager = .shared
+        let network = NetworkManager.shared
         
         let interactor = MovieDetailsInteractor(network: network)
         let router = MovieDetailsRouter()

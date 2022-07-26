@@ -20,7 +20,7 @@ protocol MovieDetailsViewOutput: AnyObject {
 
 class MovieDetailsViewController: UIViewController {
 
-    weak var output: MovieDetailsViewOutput?
+    var output: MovieDetailsViewOutput?
     var dataDisplayManager: MovieDetailsDataDisplayManager?
     
     var movie: Movie!
