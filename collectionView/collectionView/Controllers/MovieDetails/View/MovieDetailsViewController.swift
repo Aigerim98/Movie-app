@@ -27,7 +27,6 @@ class MovieDetailsViewController: UIViewController {
     //var movieId: Int!
     var movieDetails: MovieDetailsEntity!
     
-    
     @IBOutlet private var ratingContainerView: UIView!
     @IBOutlet private var movieDescriptionLabel: UILabel!
     @IBOutlet private var movieRatingLabel: UILabel!

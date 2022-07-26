@@ -80,9 +80,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: (title: sectionNames[indexPath.row], movies: sectionMovies[indexPath.row]), genre: genres)
         cell.onAllMoviesButtonDidTap = { [weak self] in
             guard let self = self else {return}
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-            vc.movies = self.sectionMovies[indexPath.row]
-            vc.genres = self.genres
+            let vc = MovieListModuleAssembly().assemble { [weak self] input in
+                guard let self = self else {return}
+                input.getGenres(genres: self.genres)
+                input.getMovies(movies: self.sectionMovies[indexPath.row])
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         //cell.index = indexPath.row
